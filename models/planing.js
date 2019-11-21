@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const planingSchema = new Schema({
     title: { type: String, required: true },
-    story:{ type: String, required: true },
+    story: String,
     link: String
 });
 

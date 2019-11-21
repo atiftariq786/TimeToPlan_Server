@@ -20,7 +20,7 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.set("debug", true);
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/my_database");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/planing_database");
 
 // Start the API server
 app.listen(PORT, function () {
