@@ -5,8 +5,7 @@ const db = require("../models");
 module.exports = {
   
   saveStory: function (req, res) {
-    db.Planing
-      .create(req.body)
+    db.Planing.create(req.body)
       .then(dbModel => res.status(201).json(dbModel))
       .catch(err => res.status(422).json(err));
       //.catch(err => res.send(err));
