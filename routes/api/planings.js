@@ -1,3 +1,4 @@
+/*
 const router = require("express").Router();
 const planingController = require("../../controllers/planingController");
 
@@ -9,3 +10,4 @@ router.route("/")
 
 
 module.exports = router;
+*/

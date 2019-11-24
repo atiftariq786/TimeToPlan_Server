@@ -1,3 +1,4 @@
+/*
 const router = require("express").Router();
 const planingRoutes = require("./planings");
 
@@ -5,3 +6,5 @@ const planingRoutes = require("./planings");
 router.use("/planing", planingRoutes);
 
 module.exports = router;
+
+*/
