@@ -31,9 +31,22 @@ createStory = (req, res) => {
           }) 
       })
 }
+getStories = async (req, res) => {
+    await Story.find({}, (err, stories) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!stories.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Stories not found` })
+        }
+        return res.status(200).json({ success: true, data: stories })
+    }).catch(err => console.log(err))
+}
 module.exports = {
-    createStory
-    
+    createStory,
+    getStories,
 }
 
 /*
