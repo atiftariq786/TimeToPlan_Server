@@ -13,11 +13,16 @@ const Story = new Schema({
     //title: { type: String, required: true },
     title: String,
     story: String,
+    profileImage: String,
+    backgroundImage: String,
     author: String
     
 });
 
+
+
 module.exports = mongoose.model("PostStory", Story);
+
 /*
 let temp = new Planing ({
     title: "MotoGP",
