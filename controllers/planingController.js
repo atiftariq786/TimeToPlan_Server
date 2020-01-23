@@ -1,38 +1,14 @@
-const Story = require("../models/planing");
-const Goal = require("../models/goals");
+const Story = require("../models/story");
+const Goal = require("../models/goal");
 
 createStory = (req, res) => {
-  const body = req.body
+    const body = req.body
 
-  if (!body) {
-      return res.status(400).json({
-          success: false,
-          error: 'You must provide a story',
-      })
-  }
-
-  const story = new Story(body)
-
-  if (!story) {
-      return res.status(400).json({ success: false, error: err })
-  }
-
-  story.save()      
-      .then(() => {
-          return res.status(201).json({
-              success: true,
-              id: story._id,
-              message: 'Story created!',
-          })
-      })
-      .catch(error => {
-          return res.status(400).json({
-              error,
-              message: 'Story not created!',
-          }) 
-      })
-}
-getStories = async (req, res) => {
+    if (!body) {
+        return res.status(400).json({
+        })
+    }
+    getStories = async (req, res) => {
     await Story.find({}, (err, stories) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
@@ -45,10 +21,11 @@ getStories = async (req, res) => {
         return res.status(200).json({ success: true, data: stories })
     }).catch(err => console.log(err))
 
+    }
 }
 
 deleteStory = async (req, res) => {
-   
+
     await Story.findOneAndDelete({ _id: req.params.id }, (err, story) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
@@ -107,26 +84,24 @@ updateStory = async (req, res) => {
     })
 }
 
-
-
 //==========================================================
 
 createGoal = (req, res) => {
     const body = req.body
-  
+
     if (!body) {
         return res.status(400).json({
             success: false,
             error: 'You must provide a Goal',
         })
     }
-  
+
     const goal = new Goal(body)
-  
+
     if (!goal) {
         return res.status(400).json({ success: false, error: err })
     }
-  
+
     goal.save()      
         .then(() => {
             return res.status(201).json({
@@ -141,10 +116,10 @@ createGoal = (req, res) => {
                 message: 'goal not created!',
             }) 
         })
-  }
+}
 
-  getGoals = async (req, res) => {
-   
+getGoals = async (req, res) => {
+    
     await Goal.find({}, (err, goals) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
@@ -196,6 +171,7 @@ updateGoal = async (req, res) => {
         goal.title = body.title
         goal.link = body.link
         goal.description = body.description
+        goal.completeGoal = body.completeGoal
         }
         
         goal.save()
@@ -225,18 +201,4 @@ module.exports = {
     getGoals,
     deleteGoal,
     updateGoal,
-    
 }
-
-/*
-const db = require("../models");
-// Defining methods for the planingController
-module.exports = {
-    saveStory: function (req, res) {
-    db.Planing.create(req.body)
-        .then(dbModel => res.status(201).json(dbModel))
-        .catch(err => res.status(422).json(err));
-        //.catch(err => res.send(err));
-    }
-};
-*/

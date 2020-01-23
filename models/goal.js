@@ -6,7 +6,8 @@ const Goal = new Schema({
     //title: { type: String, required: true },
     title: String,
     link: String,
-    description: String
+    description: String,
+    completeGoal: Boolean
     
 });
 
