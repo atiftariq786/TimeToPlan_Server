@@ -6,9 +6,34 @@ createStory = (req, res) => {
 
     if (!body) {
         return res.status(400).json({
+        success: false,
+        error: 'You must provide a story',
         })
     }
-    getStories = async (req, res) => {
+
+    const story = new Story(body)
+
+    if (!story) {
+        return res.status(400).json({ success: false, error: err })
+    }
+
+    story.save()      
+        .then(() => {
+            return res.status(201).json({
+                success: true,
+                id: story._id,
+                message: 'Story created!',
+            })
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Story not created!',
+            }) 
+        })
+}
+//======================================================
+getStories = async (req, res) => {
     await Story.find({}, (err, stories) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
@@ -21,8 +46,8 @@ createStory = (req, res) => {
         return res.status(200).json({ success: true, data: stories })
     }).catch(err => console.log(err))
 
-    }
 }
+
 
 deleteStory = async (req, res) => {
 
