@@ -18,7 +18,7 @@ userSignUp = (req,res) => {
             console.log("Auth successfull")
             return res.status(201).json({
                 success: true,
-                message: 'User SignedUp Successfully',
+                message: user.username,
             })
         })
     });

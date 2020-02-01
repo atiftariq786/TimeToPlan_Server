@@ -30,12 +30,7 @@ router.post("/login/",function(req, res, next) {
 
 router.get("/logout/", AuthController.userLogout)
 
-isLoggedIn = (req, res, next) => { // Need to add calling from get method 
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
+
 
 /*
 router.post("/register/", function(req,res){

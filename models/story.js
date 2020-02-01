@@ -11,6 +11,7 @@ const Schema = mongoose.Schema;
 
 const Story = new Schema({
     //title: { type: String, required: true },
+    userId: String,
     title: String,
     story: String,
     profileImage: String,
