@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 //Cors used to connect middlware that can be enable variouse options that are credential and origin.
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://safe-anchorage-29156.herokuapp.com",
     credentials:true,
 }));
 
