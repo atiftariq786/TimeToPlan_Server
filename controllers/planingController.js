@@ -2,19 +2,19 @@ const Story = require("../models/story");
 const Goal = require("../models/goal");
 
 createStory = (req, res) => {
-    const body = req.body
+    
+    let body = req.body;
+    body.userId = req.user._id;
 
     if (!body) {
-        return res.status(400).json({
+        return res.status(404).json({
         success: false,
         error: 'You must provide a story',
         })
     }
-
     const story = new Story(body)
-
     if (!story) {
-        return res.status(400).json({ success: false, error: err })
+        return res.status(404).json({ success: false, error: err })
     }
 
     story.save()      
@@ -26,17 +26,17 @@ createStory = (req, res) => {
             })
         })
         .catch(error => {
-            return res.status(400).json({
+            return res.status(404).json({
                 error,
                 message: 'Story not created!',
             }) 
         })
-}
-//======================================================
+};
+
 getStories = async (req, res) => {
-    await Story.find({}, (err, stories) => {
+    await Story.find({userId:req.user._id}, (err, stories) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(404).json({ success: false, error: err })
         }
         if (!stories.length) {
             return res
@@ -46,16 +46,14 @@ getStories = async (req, res) => {
         return res.status(200).json({ success: true, data: stories })
     }).catch(err => console.log(err))
 
-}
-
+};
 
 deleteStory = async (req, res) => {
 
     await Story.findOneAndDelete({ _id: req.params.id }, (err, story) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(404).json({ success: false, error: err })
         }
-
         if (!story) {
             return res
                 .status(404)
@@ -70,7 +68,7 @@ updateStory = async (req, res) => {
     const body = req.body
 
     if (!body) {
-        return res.status(400).json({
+        return res.status(404).json({
             success: false,
             error: 'You must provide a body to update',
         })
@@ -84,12 +82,11 @@ updateStory = async (req, res) => {
             })
         }
         else{
-        story.title = body.title
-        story.story = body.story
-        story.profileImage = body.profileImage
-        story.backgroundImage = body.backgroundImage
-        story.author = body.author
-        
+            story.title = body.title
+            story.story = body.story
+            story.profileImage = body.profileImage
+            story.backgroundImage = body.backgroundImage
+            story.author = body.author
         }
         
         story.save()
@@ -112,19 +109,18 @@ updateStory = async (req, res) => {
 //==========================================================
 
 createGoal = (req, res) => {
-    const body = req.body
+    const body = req.body;
+    body.userId = req.user._id;
 
     if (!body) {
-        return res.status(400).json({
+        return res.status(404).json({
             success: false,
             error: 'You must provide a Goal',
         })
     }
-
     const goal = new Goal(body)
-
     if (!goal) {
-        return res.status(400).json({ success: false, error: err })
+        return res.status(404).json({ success: false, error: err })
     }
 
     goal.save()      
@@ -136,7 +132,7 @@ createGoal = (req, res) => {
             })
         })
         .catch(error => {
-            return res.status(400).json({
+            return res.status(404).json({
                 error,
                 message: 'goal not created!',
             }) 
@@ -145,9 +141,9 @@ createGoal = (req, res) => {
 
 getGoals = async (req, res) => {
     
-    await Goal.find({}, (err, goals) => {
+    await Goal.find({userId:req.user._id}, (err, goals) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(404).json({ success: false, error: err })
         }
         if (!goals.length) {
             return res
@@ -179,7 +175,7 @@ updateGoal = async (req, res) => {
     const body = req.body
 
     if (!body) {
-        return res.status(400).json({
+        return res.status(404).json({
             success: false,
             error: 'You must provide a body to update',
         })

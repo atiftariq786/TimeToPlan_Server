@@ -5,10 +5,8 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
 
-    userId: String,
     username: String,
     password: String,
-    
 });
 UserSchema.plugin(passportLocalMongoose);
 

@@ -8,7 +8,7 @@ const cookieParser  = require("cookie-parser");
 const cors          = require("cors");
 
 const User = require("./models/user");
-const planingRoutes = require("./routes/planing-Routes");
+const planingRoutes = require("./routes/planingRoutes");
 const authRoutes = require("./routes/authRoutes");
 const middlewareAuth = require("./routes/utils");
 
@@ -16,24 +16,12 @@ const middlewareAuth = require("./routes/utils");
 const app = express(); 
 const PORT = process.env.PORT || 3001;
 
+//Cors used to connect middlware that can be enable variouse options that are credential and origin.
 app.use(cors({
     origin: "http://localhost:3000",
     credentials:true,
 }));
 
-/*
-// enable CORS so that browsers don't block requests.
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Credentials', true),
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
-*/
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
 app.use(cookieParser());
 app.use(session({
     secret: 'keyboard cat',
@@ -46,13 +34,6 @@ app.use(session({
         encode:String,
     }
 }));
-/*
-app.use(require("express-session")({
-    secret: " World famous hiking",
-    resave: false,
-    saveUninitialized:false  
-}));
-*/
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
