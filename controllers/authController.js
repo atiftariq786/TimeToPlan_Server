@@ -4,8 +4,9 @@ const passport = require("passport");
 userSignUp = (req,res) => {
     console.log("server side signup activate")
     req.body.username
+    req.body.email
     req.body.password
-    User.register(new User({username:req.body.username}),req.body.password, function(err, user){
+    User.register(new User({username:req.body.username, email:req.body.email}),req.body.password, function(err, user){
         if(err){
             console.log(err);
             return res.status(404).json({
