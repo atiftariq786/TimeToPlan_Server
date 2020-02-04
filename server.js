@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 3001;
 //Cors used to connect middlware that can be enable variouse options that are credential and origin.
 app.use(cors({
     origin: "https://atiftariq786.github.io",
+   // origin: "http://localhost:3000",
     credentials:true,
 }));
 
