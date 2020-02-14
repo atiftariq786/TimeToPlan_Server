@@ -30,9 +30,10 @@ userLogin = (req, res, next) => {
     passport.authenticate("local", function(err, user, info){
         
         if (err) { return next(err); }
+
         if (!user) { return res.status(404).json({
             success: false,
-            message: 'User not available',
+            message: 'Username or password incorrect',
         }) }
 
         req.logIn(user, function(err) {
@@ -46,7 +47,6 @@ userLogin = (req, res, next) => {
         })
     })(req, res, next);
 };
-
 userLogout = (req,res) => {
 
     req.logout();
@@ -55,9 +55,7 @@ userLogout = (req,res) => {
         success: true, 
         message: 'User logout',
     })
-    
 }
-
 module.exports ={
     userSignUp,
     userLogin,
